@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simulador Interactivo TCP/IP</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <h1>
+        <span class="app-logo" aria-hidden="true"><span class="material-icons-outlined">hub</span></span>
+        Simulador Interactivo TCP/IP
+      </h1>
+      <p>Explora paso a paso cómo los protocolos encapsulan y entregan los datos.</p>
+    </header>
+
+    <main>
+      <div class="layout">
+        <section class="timeline timeline-accent" aria-label="Línea de tiempo de eventos">
+          <h2 class="panel-title"><span class="material-icons-outlined" aria-hidden="true">list_alt</span> Escenario</h2>
+          <label class="scenario-picker">
+            Selecciona un escenario
+            <select id="scenario-select" aria-label="Seleccionar escenario"></select>
+          </label>
+          <p class="scenario-title" id="scenario-title"></p>
+          <ol id="timeline-list" class="timeline-list"></ol>
+        </section>
+
+        <section class="workspace" aria-live="polite">
+          <div class="controls">
+            <button id="step-back" class="icon-button primary-button" aria-label="Paso anterior" title="Paso anterior">
+              <span class="material-icons-outlined" aria-hidden="true">skip_previous</span>
+            </button>
+            <button id="play" class="icon-button primary-button" aria-label="Reproducir" title="Reproducir">
+              <span class="material-icons-outlined" aria-hidden="true">play_arrow</span>
+            </button>
+            <button id="pause" class="icon-button primary-button" aria-label="Pausar" title="Pausar" disabled>
+              <span class="material-icons-outlined" aria-hidden="true">pause</span>
+            </button>
+            <button id="step-forward" class="icon-button primary-button" aria-label="Paso siguiente" title="Paso siguiente">
+              <span class="material-icons-outlined" aria-hidden="true">skip_next</span>
+            </button>
+            <button id="reset" class="icon-button ghost-button" aria-label="Reiniciar" title="Reiniciar">
+              <span class="material-icons-outlined" aria-hidden="true">restart_alt</span>
+            </button>
+            <label class="speed-control" title="Velocidad de reproducción">
+              <span class="material-icons-outlined" aria-hidden="true">speed</span> Velocidad
+              <input type="range" id="speed" min="0.5" max="2" step="0.25" value="1" />
+              <span id="speed-label">1x</span>
+            </label>
+            <label class="advanced-toggle" for="advanced-mode" title="Modo avanzado">
+              <input type="checkbox" id="advanced-mode" />
+              <span class="advanced-label"><span class="material-icons-outlined" aria-hidden="true">insights</span> Modo avanzado</span>
+            </label>
+          </div>
+
+          <div class="visual-panels">
+            <article class="layer-stack" aria-label="Visualización de capas">
+              <h2 class="panel-title"><span class="material-icons-outlined" aria-hidden="true">layers</span> Capa activa</h2>
+              <div id="layer-stack"></div>
+            </article>
+
+            <article class="packet-details" aria-label="Detalles del paquete">
+              <div class="panel-header">
+                <h2 class="panel-title"><span class="material-icons-outlined" aria-hidden="true">inventory_2</span> Detalles del paquete</h2>
+                <button type="button" id="packet-advanced" class="ghost-button" hidden title="Ver detalles avanzados" aria-label="Ver detalles avanzados">
+                  <span class="material-icons-outlined" aria-hidden="true">open_in_full</span>
+                  <span class="button-text">Ver detalles</span>
+                </button>
+              </div>
+              <p id="packet-direction" class="packet-direction"></p>
+              <dl id="packet-fields" class="packet-fields"></dl>
+            </article>
+
+            <article class="event-log" aria-label="Eventos">
+              <h2 class="panel-title"><span class="material-icons-outlined" aria-hidden="true">notes</span> Eventos</h2>
+              <ul id="event-log" class="event-list"></ul>
+            </article>
+          </div>
+
+          <section id="challenge" class="challenge" hidden aria-live="polite"></section>
+        </section>
+      </div>
+
+      <section class="supplemental-info" aria-label="Información complementaria">
+        <h2 class="supplemental-title"><span class="material-icons-outlined" aria-hidden="true">info</span> Información complementaria</h2>
+        <div class="supplemental-grid">
+          <article class="info-panel" id="glossary-panel">
+            <h3 class="info-title"><span class="material-icons-outlined" aria-hidden="true">menu_book</span> Glosario</h3>
+            <dl id="glossary-list" class="glossary-list"></dl>
+          </article>
+          <article class="info-panel" id="references-panel">
+            <h3 class="info-title"><span class="material-icons-outlined" aria-hidden="true">link</span> Referencias</h3>
+            <ul id="references-list" class="references-list"></ul>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <p>Sugerencia: usa los controles para avanzar paso a paso y observa cómo se encapsula la información en cada capa.</p>
+      <p class="license">Contenido bajo licencia Creative Commons CC BY-SA. Autor: Javier Feijóo López - Docente informática.</p>
+    </footer>
+
+    <div id="packet-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
+      <div class="modal-dialog">
+        <button type="button" class="modal-close" id="modal-close" aria-label="Cerrar detalles" title="Cerrar detalles">
+          <span class="material-icons-outlined" aria-hidden="true">close</span>
+        </button>
+        <h3 id="modal-title">Detalles avanzados del paquete</h3>
+        <div id="modal-body" class="modal-body"></div>
+      </div>
+    </div>
+
+    <script type="module" src="scripts/main.js"></script>
+  </body>
+</html>
